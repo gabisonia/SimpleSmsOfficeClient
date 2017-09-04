@@ -30,29 +30,36 @@ namespace SmsOfficeClient
             var postResponse = _client.PostAsync(_baseAddress, content).Result;
             if (postResponse.IsSuccessStatusCode)
             {
-                response.Success = true;
-                response.Result = HumanizeResultCode(postResponse.Content.ReadAsStringAsync().Result);
+                var resultCode = postResponse.Content.ReadAsStringAsync().Result;
+                response.Result = HumanizeResultCode(resultCode);
+                response.Success = resultCode == "01";
             }
             return response;
         }
         private string HumanizeResultCode(string resultCode)
         {
+            var result = String.Empty;
             switch (resultCode)
             {
                 case "01":
-                    return ApplicationStrings.Result01;
+                    result = ApplicationStrings.Result01;
+                    break;
                 case "100":
-                    return ApplicationStrings.Result100;
+                    result = ApplicationStrings.Result100;
+                    break;
                 case "120":
-                    return ApplicationStrings.Result120;
+                    result = ApplicationStrings.Result120;
+                    break;
                 case "130":
-                    return ApplicationStrings.Result130;
+                    result = ApplicationStrings.Result130;
+                    break;
                 case "200":
-                    return ApplicationStrings.Result200;
+                    result = ApplicationStrings.Result200;
+                    break;
                 default:
-                    return String.Empty;
+                    break;
             }
+            return result;
         }
-
     }
 }

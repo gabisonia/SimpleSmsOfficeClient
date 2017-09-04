@@ -6,14 +6,13 @@ namespace SmsOfficeClient
     {
         static void Main(string[] args)
         {
-            var client = new SmsOfficeClient("Api-key");
+            var client = new SmsOfficeClient("api-key");
             var response = client.Send(new SendSmsRequest
             {
                 Content = "Test",
                 To = "995597933199",
-                Sender="me"
+                Sender="Sender"
             });
-            //output 
             if (response.Success)
             {
                 Console.WriteLine("Success");
